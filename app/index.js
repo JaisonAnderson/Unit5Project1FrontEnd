@@ -8,26 +8,26 @@ export default function MonthsList(){
     const [apiUrl, setApiUrl] = useState("");
 
     useEffect(() => {
-        const hostUri = Constants.expoGoConfig.hostUri;
-        ipAddress = hostUri ? hostUri.split(":")[0] : null;
+        const hostUri = Constants.expoConfig.hostUri;
+        const ipAddress = hostUri ? hostUri.split(":")[0] : null;
         const apiPort = "8080";
         const tempURL = ipAddress ? `https://${ipAddress}:${apiPort}` : null
         setApiUrl(tempURL);
+        console.log(tempURL)
         fetch(`${tempURL}/api/calendar/Months`)
             .then((response) => response.json())
             .then((data) => SetMonths(data))
-    })
-
+    }, [])
+    console.log(months)
 
     return(
         <View>
             <FlatList
             data={months}
+            keyExtractor={(item) => item.id}
             renderItem={({item}) => (
-                 <View key={item.id}>
-                    <Link href={`/month/${item.id}`}>
-                        <Text>{item.title}</Text>
-                    </Link>
+                 <View>
+                    <Text>{item.title}</Text>
                  </View>   
             )}
             />
