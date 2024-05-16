@@ -5,7 +5,7 @@ import Constants from "expo-constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function MonthsList(){
-    const [months, SetMonths] = useState([]);
+    const [months, SetDays] = useState([]);
     const [apiUrl, setApiUrl] = useState("");
 
     useEffect(() => {
@@ -15,9 +15,9 @@ export default function MonthsList(){
         const tempURL = ipAddress ? `http://${ipAddress}:${apiPort}` : null
         setApiUrl(tempURL);
         console.log(tempURL)
-        fetch(`${tempURL}/api/calendar/Months`)
+        fetch(`${tempURL}/api/calendar/Days`)
             .then((response) => response.json())
-            .then((data) => SetMonths(data))
+            .then((data) => SetDays(data))
     }, [])
     console.log(months)
 
@@ -30,8 +30,8 @@ export default function MonthsList(){
                  <View>
                     <TouchableOpacity>
                     <Text>{item.title}</Text>
-                    <Link href={"/day"}></Link>
                     </TouchableOpacity>
+                    <Link href={"/"}>Return</Link>
                     
                  </View>   
             )}
